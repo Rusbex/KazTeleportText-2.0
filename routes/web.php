@@ -14,11 +14,17 @@ use App\Http\Controllers;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\GalleryController::class,'index'])->name('home');
-Route::get('/photos/{id}', [\App\Http\Controllers\PhotoController::class, 'getPhoto'])->name('get-photo');
+Route::get('/', [\App\Http\Controllers\GalleryController::class, 'index'])->name('home');
+Route::get('/photo/{id}', [\App\Http\Controllers\PhotoController::class, 'show'])->name('show');
 Route::get('/next-photos', [\App\Http\Controllers\GalleryController::class, 'getNextPhotos'])->name('get-next-photos');
+//Route::get('/photo/{photo}', [\App\Http\Controllers\PhotoController::class, 'show'])->name('show');
+
+//Route::get('/photos/{id}/favorite', [\App\Http\Controllers\FavoriteController::class,'store'])->name('home');
+
 
 
 //Route::get('/get-next-photos', [\App\Http\Controllers\GalleryController::class,'getNextPhotos'])->name('get-next-photos');
+//Route::get('/photos/{id}', 'GalleryController@show')->name('photos.show'); // отображение информа.ции о фотографии
+//Route::post('/photos/{id}/favorite', 'GalleryController@toggleFavorite')->name('favourites'); // добавление/удаление фотографии в/из избранного
 
 

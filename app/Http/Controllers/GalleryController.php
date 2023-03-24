@@ -4,31 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Collection;
 
 class GalleryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $page = $request->query('page') ?? 1;
+
         $response = Http::get('https://api.unsplash.com/photos', [
             'client_id' => config('services.unsplash.key'),
             'per_page' => 15,
-
+            'page' => $page,
         ]);
 
-        $photos = $response->json();
-//        dd($photos); // добавлено для отладки
+        $photos = collect($response->json());
+
+//        return dd($photos);
 
         return view('home', [
             'photos' => $photos,
         ]);
-    }
-    public function getPhoto($id)
-    {
-        $response = Http::get("https://api.unsplash.com/photos/{$id}", [
-            'client_id' => 'your_access_key'
-        ]);
-
-        return response()->json($response->json());
     }
 
     public function getNextPhotos(Request $request)

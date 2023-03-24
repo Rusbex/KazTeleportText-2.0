@@ -31,7 +31,7 @@
 
                 <!-- начало логотип левая часть шапки -->
                 <div class="logo">
-                    <a class="logo-wrap" href="#body">
+                    <a class="logo-wrap" href="{{route('home')}}">
                         <img class="logo-img" src="{{asset('img/logo.png')}}" alt="Asentus Logo">
                     </a>
                 </div>

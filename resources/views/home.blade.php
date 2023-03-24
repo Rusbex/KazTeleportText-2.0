@@ -15,21 +15,32 @@
         <section class="p-4 text-center w-100">
             <!-- Gallery -->
             <div class="row">
-                @foreach ($photos as $photo)
-                    @csrf
-                    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                        <div class="card shadow-sm">
-                            <img class="card-img-top" src="{{ isset($photo['urls']['regular']) ? $photo['urls']['regular'] : '' }}" alt="{{ isset($photo['alt_description']) ? $photo['alt_description'] : '' }}">
-                            <div class="card-body">
-                                <p class="card-text">{{ isset($photo['description']) ? $photo['description'] : '' }}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">{{ isset($photo['user']['name']) ? $photo['user']['name'] : '' }}</small>
-                                    <small class="text-muted">{{ isset($photo['created_at']) ? $photo['created_at'] : ''}}</small>
+                @if ($photos->isNotEmpty())
+                    <div class="row">
+                        @php $i = 0 @endphp
+                        @foreach($photos->chunk(3) as $chunk)
+                            @foreach ($chunk as $photo)
+                                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                                    <a href="{{ route('show', ['id' => $photo['id']]) }}">
+                                        <div class="card shadow-sm">
+                                            <img class="card-img-top" src="{{ $photo['urls']['regular'] }}" alt="{{ $photo['alt_description'] }}">
+                                            <div class="card-body">
+                                                <p class="card-text">{{ $photo['description'] }}</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-muted">{{ $photo['user']['name'] }}</small>
+                                                    <small class="text-muted">{{ $photo['created_at'] }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                        </div>
+                                @php $i++ @endphp
+                            @endforeach
+                        @endforeach
                     </div>
-                @endforeach
+                @else
+                    <p>No photos found</p>
+                @endif
             </div>
             <!-- Gallery -->
         </section>

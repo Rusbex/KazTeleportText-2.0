@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class PhotoController extends Controller
 {
-    public function getPhoto($id)
+    public function show(Photo $photo)
     {
-        $response = Http::get("https://api.unsplash.com/photos/{$id}", [
-            'client_id' => config('services.unsplash.key')
+//        return dd($photo);
+//        dd($photo);
+        return view('show', [
+            'photo' => $photo,
         ]);
-
-        return response()->json($response->json());
     }
 }
